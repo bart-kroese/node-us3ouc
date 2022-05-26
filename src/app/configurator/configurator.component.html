@@ -1,0 +1,27 @@
+<div *ngFor="let step of configuration?.steps ?? []; let i = index">
+  <div class="step" [class.active]="i === activeIndex">
+    <app-feature [configuration]="configuration" [feature]="feature" *ngFor="let feature of step.features"></app-feature>
+  </div>
+</div>
+
+<div class="footer">
+  <span>
+    <b>Total price:</b>
+    {{ configuration?.totalPrice | currency: 'EUR': true }}
+  </span>
+  <br />
+  <button 
+    [disabled]="activeIndex === 0"
+    (click)="previous()"
+  >
+    <
+  </button>
+  <button 
+    [disabled]="activeIndex === (configuration?.steps ?? []).length - 1"
+    (click)="next()"
+  >
+    >
+  </button>
+  <button [routerLink]="['/checkout', configuration?.id]">Request quote</button>
+</div>
+
